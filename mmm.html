@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>Happy Birthday Mariam</title>
+
+<style>
+body {
+    margin:0;
+    font-family: Arial;
+    text-align:center;
+    background: black;
+    overflow-x: hidden;
+    color: white;
+}
+
+/* النجوم */
+.stars {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.star-bg {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    opacity: 0.8;
+}
+
+/* القلوب */
+.fall {
+    position: fixed;
+    top: -10%;
+    animation: fall linear forwards;
+}
+
+.heart { color: red; }
+.star { color: gold; }
+
+@keyframes fall {
+    to { transform: translateY(110vh); }
+}
+
+/* صندوق الرسالة */
+.box {
+    margin: 30px auto;
+    width: 85%;
+    max-width: 400px;
+    padding: 20px;
+    border-radius: 20px;
+    background: #111;
+    border: 1px solid #444;
+    box-shadow: 0 0 15px rgba(255,255,255,0.2);
+}
+
+/* الدخول */
+.container { margin-top: 80px; }
+
+input {
+    padding:10px;
+    border-radius:10px;
+    border:none;
+    width: 200px;
+}
+
+button {
+    padding:10px 20px;
+    background:#ff4d6d;
+    color:white;
+    border:none;
+    border-radius:10px;
+    margin-top:10px;
+    cursor:pointer;
+}
+
+.hidden { display:none; }
+
+h1, h2 { color: #ff4d6d; }
+
+/* الصور */
+.images {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.img-box {
+    padding: 10px;
+    border-radius: 20px;
+    background: linear-gradient(45deg, #ff4d6d, #ff9aa2);
+    box-shadow: 0 0 20px rgba(255,77,109,0.5);
+    transition: 0.4s;
+}
+
+.img-box img {
+    width: 260px;
+    border-radius: 15px;
+    display:block;
+    transition: 0.4s;
+}
+
+.img-box:hover {
+    transform: scale(1.05) rotate(1deg);
+    box-shadow: 0 0 30px rgba(255,77,109,0.9);
+}
+
+.img-box img:hover {
+    transform: scale(1.08);
+}
+
+.img-box {
+    animation: fadeUp 1s ease forwards;
+    opacity: 0;
+}
+
+.img-box:nth-child(1){ animation-delay: 0.2s; }
+.img-box:nth-child(2){ animation-delay: 0.4s; }
+.img-box:nth-child(3){ animation-delay: 0.6s; }
+.img-box:nth-child(4){ animation-delay: 0.8s; }
+.img-box:nth-child(5){ animation-delay: 1s; }
+
+@keyframes fadeUp {
+    from { transform: translateY(40px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* العداد */
+#countdown {
+    font-size: 80px;
+    color: #ff4d6d;
+    margin-top: 100px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="stars" id="stars"></div>
+
+<div class="container">
+    <h2>🎁 هديه عيد ميلاد مطيزه ✨</h2>
+    <p>ممنوع الدخول إلا لمريم ❤️</p>
+
+    <input id="pass" placeholder="الباسورد">
+    <br>
+    <button onclick="check()">دخول</button>
+</div>
+
+<!-- العداد -->
+<div id="countdown" class="hidden"></div>
+
+<div id="content" class="hidden">
+
+    <h1>Happy Birthday Mariam ❤️</h1>
+
+    <div class="box">
+        <p>
+            عيد ميلاد الليله مين 🎉<br>
+            عيد ميلاد النونه 😂<br>
+            هنفرح ست الحلوين ونشيلها ف عيونا ❤️<br><br>
+
+            احلى طيز تكمل 21 🤣🤣<br>
+            قصدي احلى حد يكمل 21 😘💋❤️<br><br>
+
+            كل سنه وانتي طيبه يروحي ❤️<br>
+            بحبك 🤟<br><br>
+
+            — بشمهندس محمد حمودك 💙
+        </p>
+    </div>
+
+    <!-- الصوت -->
+    <audio id="bgMusic">
+        <source src="audio/1.mp3" type="audio/mpeg">
+    </audio>
+
+    <br><br>
+
+    <!-- الفيديو -->
+    <video width="300" controls>
+        <source src="video/1.mp4" type="video/mp4">
+    </video>
+
+    <br><br>
+
+    <!-- الصور -->
+    <div class="images">
+        <div class="img-box"><img src="image/1.jpg"></div>
+        <div class="img-box"><img src="image/2.jpg"></div>
+        <div class="img-box"><img src="image/3.jpg"></div>
+        <div class="img-box"><img src="image/4.jpg"></div>
+        <div class="img-box"><img src="image/5.jpg"></div>
+    </div>
+
+</div>
+
+<script>
+function check(){
+    let pass = document.getElementById("pass").value;
+
+    if(pass == "1234"){
+        document.querySelector(".container").style.display="none";
+        startCountdown();
+    } else {
+        alert("غلط 😅");
+    }
+}
+
+function startCountdown(){
+    let count = 3;
+    let cd = document.getElementById("countdown");
+    cd.classList.remove("hidden");
+    cd.innerHTML = count;
+
+    let interval = setInterval(()=>{
+        count--;
+        cd.innerHTML = count;
+
+        if(count === 0){
+            clearInterval(interval);
+            cd.classList.add("hidden");
+
+            document.getElementById("content").classList.remove("hidden");
+
+            // تشغيل الصوت
+            let audio = document.getElementById("bgMusic");
+            audio.play().catch(()=>{
+                audio.muted = true;
+                audio.play();
+            });
+        }
+    },1000);
+}
+
+/* النجوم */
+for(let i = 0; i < 150; i++){
+    let star = document.createElement("div");
+    star.className = "star-bg";
+    star.style.top = Math.random()*100+"vh";
+    star.style.left = Math.random()*100+"vw";
+    document.getElementById("stars").appendChild(star);
+}
+
+/* القلوب */
+setInterval(()=>{
+    let el = document.createElement("div");
+    let isHeart = Math.random() > 0.3;
+
+    el.className = "fall " + (isHeart ? "heart" : "star");
+    el.innerHTML = isHeart ? "❤️" : "⭐";
+
+    el.style.left = Math.random()*100+"vw";
+    el.style.animationDuration = (3 + Math.random()*3) + "s";
+    el.style.fontSize = (15 + Math.random()*20) + "px";
+
+    document.body.appendChild(el);
+    setTimeout(()=>el.remove(),6000);
+
+},120);
+</script>
+
+</body>
+</html>
